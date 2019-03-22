@@ -1,5 +1,4 @@
 #include "hros_cognition_mara_components_real/HROSCognitionMaraComponentsReal.hpp"
-#include <string>
 
 HROSCognitionMaraComponentsRealNode::HROSCognitionMaraComponentsRealNode(const std::string & node_name,
                    int argc, char **argv, bool intra_process_comms )
@@ -50,28 +49,30 @@ HROSCognitionMaraComponentsRealNode::HROSCognitionMaraComponentsRealNode(const s
   }
   std::cout << "=====================================================" << std::endl;
 
-  std::cout << "++++++++++++++++++ Publishers and Subscribers ++++++++++++++++++" << std::endl;
+  std::cout << "++++++++++++++++++ Subscribers and Publishers++++++++++++++++++" << std::endl;
   for(unsigned int i = 0; i < topic_order.size(); i++){
+
     std::string topic = topic_order[i];
     std::string delimiter = ":";
     std::string id = topic.substr( 0, topic.find(delimiter) );
     std::string axis = topic.erase( 0, topic.find(delimiter) + delimiter.length() );
+    std::string motor_name = id + "/state_" + axis;
 
     auto subscriber = this->create_subscription<hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo>(
-                              std::string("/") + id + "/state_" + axis,
-                              [this, topic](hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo::UniquePtr msg) {
-                                stateCallback(topic, msg->velocity, msg->position, msg->effort);
+                              std::string("/") + motor_name,
+                              [this, motor_name](hrim_actuator_rotaryservo_msgs::msg::StateRotaryServo::UniquePtr msg) {
+                                stateCallback(motor_name, msg->velocity, msg->position, msg->effort);
                               },rmw_qos_profile_sensor_data);
-
     motor_state_subcriptions_.push_back(subscriber);
-    std::cout << "New subscribe at: " << subscriber->get_topic_name() << std::endl;
+    std::cout << "Subscribe at " << motor_name << std::endl;
+
+    motor_name = id + "/goal_" + axis;
 
     auto publisher_command = this->create_publisher<hrim_actuator_rotaryservo_msgs::msg::GoalRotaryServo>(
-                                   std::string("/") + id + "/goal_" + axis,
+                                   std::string("/") + motor_name,
                                    rmw_qos_profile_sensor_data);
-
     motor_goal_publishers_.push_back(publisher_command);
-    std::cout << "New publisher at " <<  std::string("/") + id + "/goal_" + axis << std::endl;
+    std::cout << "New publisher at " << motor_name << std::endl;
   }
 
   std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
@@ -86,10 +87,10 @@ HROSCognitionMaraComponentsRealNode::HROSCognitionMaraComponentsRealNode(const s
     msg_actuators_.joint_names[i] =  topic_order[i];
   }
 
-  msg_actuators_callback_sync.resize(topic_order.size());
-  for(unsigned int i = 0; i < msg_actuators_callback_sync.size(); i++){
-    msg_actuators_callback_sync[i] =  false;
-  }
+  timer_common_joints_ = this->create_wall_timer(
+      20ms, std::bind(&HROSCognitionMaraComponentsRealNode::timer_stateCommonPublisher, this));
+  timer_command_ = this->create_wall_timer(
+      10ms, std::bind(&HROSCognitionMaraComponentsRealNode::timer_commandPublisher, this));
 
   RCUTILS_LOG_INFO_NAMED(get_name(), "HROSCognitionMaraComponentsRealNode::on_configure() is finished.");
 }
