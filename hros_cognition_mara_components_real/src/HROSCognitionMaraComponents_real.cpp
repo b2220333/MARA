@@ -84,7 +84,14 @@ HROSCognitionMaraComponentsRealNode::HROSCognitionMaraComponentsRealNode(const s
   msg_actuators_.joint_names.resize(motor_goal_publishers_.size());
 
   for(unsigned int i = 0; i < topic_order.size(); i++){
-    msg_actuators_.joint_names[i] =  topic_order[i];
+
+    std::string topic = topic_order[i];
+    std::string delimiter = ":";
+    std::string id = topic.substr( 0, topic.find(delimiter) );
+    std::string axis = topic.erase( 0, topic.find(delimiter) + delimiter.length() );
+    std::string motor_name = id + "/state_" + axis;
+
+    msg_actuators_.joint_names[i] =  motor_name;
   }
 
   timer_common_joints_ = this->create_wall_timer(
