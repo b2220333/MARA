@@ -7,7 +7,6 @@
   <!--
   Author: Alejandro  Hernandez
 -->
-  <!-- <xacro:include filename="$(find mara_description)/urdf/d435.urdf.xacro" /> -->
   <link name="base_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
@@ -563,7 +562,7 @@
     <parent link="mara_camera_support1_link"/>
     <child link="mara_camera_support2_link"/>
   </joint>
-  <!-- <xacro:sensor_d435 prefix="${prefix}mara_camera_support2_link"/> -->
+  <!-- <xacro:sensor_d435/> -->
   <link name="robotiq_arg2f_base_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>

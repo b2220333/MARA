@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <!-- <xacro:include filename="$(find mara_description)/urdf/d435.urdf.xacro" /> -->
+  <xacro:include filename="$(find mara_description)/urdf/d435.urdf.xacro" />
 
   <xacro:macro name="mara_camera_gripper" params="prefix">
     <link name="${prefix}mara_gripper_adapter">
@@ -97,6 +97,6 @@
       <child link="${prefix}mara_camera_support2_link"/>
     </joint>
 
-    <!-- <xacro:sensor_d435 prefix="${prefix}mara_camera_support2_link"/> -->
+    <!-- <xacro:sensor_d435/> -->
   </xacro:macro>
 </robot>
