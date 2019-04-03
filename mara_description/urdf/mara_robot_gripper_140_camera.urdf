@@ -447,8 +447,8 @@
   <link name="mara_gripper_adapter">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="7.033"/>
-      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.00739172" ixy="-0.00001" ixz="0.0" iyy="0.00739172" iyz="0.0" izz="0.0147358995"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -473,8 +473,8 @@
   <link name="mara_camera_support1_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="7.033"/>
-      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.00739172" ixy="-0.00001" ixz="0.0" iyy="0.00739172" iyz="0.0" izz="0.0147358995"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -499,8 +499,8 @@
   <link name="mara_camera_support2_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
-      <mass value="7.033"/>
-      <inertia ixx="0.1478344" ixy="-0.00001" ixz="0.0" iyy="0.14782335" iyz="0.0" izz="0.29471799"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.00739172" ixy="-0.00001" ixz="0.0" iyy="0.00739172" iyz="0.0" izz="0.0147358995"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
