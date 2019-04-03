@@ -7,7 +7,8 @@
 
   <!-- mara -->
   <xacro:include filename="$(find mara_description)/urdf/mara.urdf.xacro" />
-  <xacro:include filename="$(find mara_description)/urdf/camera_gripper.urdf.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/camera_gripper_support.urdf.xacro" />
+  <xacro:include filename="$(find mara_description)/urdf/rs_d435.urdf.xacro" />
 
   <!-- robotiq 140 gripper -->
   <xacro:include filename="$(find robotiq_140_gripper_description)/urdf/robotiq_140.urdf.xacro" />
@@ -16,7 +17,8 @@
 
   <!-- arm -->
   <xacro:mara_robot prefix="" ee_link_distance="0.24"/>
-  <xacro:mara_camera_gripper prefix="" />
+  <xacro:mara_camera_gripper_support prefix="" />
+  <xacro:rs_d435_camera prefix="" />
   <xacro:robotiq_gripper prefix="mara" />
   <xacro:table prefix="" />
 
@@ -29,9 +31,15 @@
   </joint>
 
   <joint name="end_effector_adapter_to_robotiq" type="fixed">
-    <origin rpy="0 0 1.57" xyz=" 0 0 0.03653"/>
+    <origin rpy="0 0 1.57" xyz=" 0 0 0"/>
     <parent link="mara_gripper_adapter"/>
-    <child link="robotiq_arg2f_base_link"/>
+    <child link="robotiq_adapter_link"/>
+  </joint>
+
+  <joint name="camera_support2_to_camera_link" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.018 0.012"/>
+    <parent link="mara_camera_support2_link"/>
+    <child link="camera_link"/>
   </joint>
 
   <joint name="world_to_table_joint" type="fixed">

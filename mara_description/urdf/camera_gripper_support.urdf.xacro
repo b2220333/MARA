@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-
-  <xacro:include filename="$(find mara_description)/urdf/d435.urdf.xacro" />
-
-  <xacro:macro name="mara_camera_gripper" params="prefix">
+  <xacro:macro name="mara_camera_gripper_support" params="prefix">
     <link name="${prefix}mara_gripper_adapter">
       <inertial>
         <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
@@ -27,7 +24,7 @@
       </collision>
     </link>
     <gazebo reference="${prefix}mara_gripper_adapter">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Black</material>
       <selfCollide>True</selfCollide>
     </gazebo>
 
@@ -54,7 +51,7 @@
       </collision>
     </link>
     <gazebo reference="${prefix}mara_camera_support1_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Black</material>
       <selfCollide>True</selfCollide>
     </gazebo>
 
@@ -81,7 +78,7 @@
       </collision>
     </link>
     <gazebo reference="${prefix}mara_camera_support2_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Black</material>
       <selfCollide>True</selfCollide>
     </gazebo>
 
@@ -96,7 +93,5 @@
       <parent link="${prefix}mara_camera_support1_link"/>
       <child link="${prefix}mara_camera_support2_link"/>
     </joint>
-
-    <!-- <xacro:sensor_d435/> -->
   </xacro:macro>
 </robot>
